@@ -8,6 +8,8 @@ import '../../utils/state_controller.dart';
 
 class AddReport extends StatelessWidget {
   AddReport({Key? key}) : super(key: key);
+  final fromTController = TextEditingController();
+  final toTController = TextEditingController();
   final spotController = TextEditingController();
   final reasonController = TextEditingController();
 
@@ -43,57 +45,83 @@ class AddReport extends StatelessWidget {
                       onTap: () =>
                           controller.chooseDate(controller.selectedFromDate),
                       child: Text(
-                          "Choose date - ${humanReadableDate(controller.selectedFromDate.value)}"),
+                          "Date - ${humanReadableDate(controller.selectedFromDate.value)}"),
                     ),
                   ),
+                ),
+              ),
+            ),
+            // vHeight10(),
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+            //   child: Container(
+            //     width: Get.width,
+            //     decoration: BoxDecoration(
+            //         borderRadius: BorderRadius.circular(10),
+            //         border: Border.all(
+            //           color: Colors.grey,
+            //           width: 1,
+            //         )),
+            //     child: Padding(
+            //       padding: const EdgeInsets.all(18.0),
+            //       child: Obx(
+            //         () => InkWell(
+            //           onTap: () =>
+            //               controller.chooseTime(controller.selectedFromTime),
+            //           child: Text(
+            //               "From time - ${controller.selectedFromTime.value}"),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            // vHeight10(),
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+            //   child: Container(
+            //     width: Get.width,
+            //     decoration: BoxDecoration(
+            //         borderRadius: BorderRadius.circular(10),
+            //         border: Border.all(
+            //           color: Colors.grey,
+            //           width: 1,
+            //         )),
+            //     child: Padding(
+            //       padding: const EdgeInsets.all(18.0),
+            //       child: Obx(
+            //         () => InkWell(
+            //           onTap: () =>
+            //               controller.chooseTime(controller.selectedToTime),
+            //           child:
+            //               Text("To time - ${controller.selectedToTime.value}"),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            vHeight10(),
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+              child: TextField(
+                controller: fromTController,
+                keyboardType: TextInputType.visiblePassword,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "From time",
                 ),
               ),
             ),
             vHeight10(),
             Padding(
               padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-              child: Container(
-                width: Get.width,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: 1,
-                    )),
-                child: Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Obx(
-                    () => InkWell(
-                      onTap: () =>
-                          controller.chooseTime(controller.selectedFromTime),
-                      child: Text(
-                          "From time - ${controller.selectedFromTime.value}"),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            vHeight10(),
-            Padding(
-              padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-              child: Container(
-                width: Get.width,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: Colors.grey,
-                      width: 1,
-                    )),
-                child: Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Obx(
-                    () => InkWell(
-                      onTap: () =>
-                          controller.chooseTime(controller.selectedToTime),
-                      child:
-                          Text("To time - ${controller.selectedToTime.value}"),
-                    ),
-                  ),
+              child: TextField(
+                maxLines: 5,
+                minLines: 1,
+                controller: toTController,
+                keyboardType: TextInputType.visiblePassword,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "To time",
                 ),
               ),
             ),
@@ -137,17 +165,21 @@ class AddReport extends StatelessWidget {
                                       borderRadius:
                                           BorderRadius.circular(16.0)))),
                           onPressed: () {
-                            if (spotController.text.isNotEmpty &&
+                            if (fromTController.text.isNotEmpty &&
+                                toTController.text.isNotEmpty &&
+                                spotController.text.isNotEmpty &&
                                 reasonController.text.isNotEmpty) {
                               c.addReport(
                                   spotController.text,
                                   reasonController.text,
                                   humanReadableDate(
                                       controller.selectedFromDate.value),
-                                  controller.selectedFromTime.value,
-                                  controller.selectedToTime.value);
+                                  fromTController.text,
+                                  toTController.text);
                               spotController.text = "";
                               reasonController.text = "";
+                              fromTController.text = "";
+                              toTController.text = "";
                             } else {
                               Get.snackbar(
                                   "Error", "Fill all the fields to continue!",

@@ -35,17 +35,22 @@ class Reports extends StatelessWidget {
                   .snapshots(),
               builder: (context, querySnapshot) {
                 if (querySnapshot.hasError) {
-                  return const Center(child: Text('Has Error'));
+                  return const Expanded(
+                      child: Center(child: Text('Has Error')));
                 }
                 if (querySnapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                      child: CircularProgressIndicator(color: accentColor));
+                  return const Expanded(
+                    child: Center(
+                        child: CircularProgressIndicator(color: Colors.white)),
+                  );
                 }
                 if (querySnapshot.data == null) {
-                  return const Center(child: Text('Empty Data'));
+                  return Expanded(
+                      child: const Center(child: Text('Empty Data')));
                 }
                 if (querySnapshot.data!.size == 0) {
-                  return const Center(child: Text('No Data'));
+                  return Expanded(
+                      child: const Center(child: Text('No Data')));
                 } else {
                   return ListView.builder(
                     scrollDirection: Axis.vertical,

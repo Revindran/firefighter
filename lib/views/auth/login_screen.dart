@@ -83,7 +83,7 @@ class Login extends StatelessWidget {
             ),
             vHeight10(),
             Obx(() => controller.isLoading.value
-                ? CircularProgressIndicator(color: accentColor)
+                ? const CircularProgressIndicator(color: Colors.white)
                 : SizedBox(
                     width: Get.width,
                     child: Padding(
