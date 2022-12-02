@@ -1,17 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firefighter/components/custom_appbar.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:firefighter/views/add_report/add_report_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../utils/Constants.dart';
 
 final _fireStoreInstance = FirebaseFirestore.instance;
+var storage = GetStorage();
 
 class Reports extends StatelessWidget {
-  const Reports({Key? key}) : super(key: key);
+  Reports({Key? key}) : super(key: key);
+  final uType = storage.read('uType');
+  final uName = storage.read('name');
 
   @override
   Widget build(BuildContext context) {
+    final c = Get.put(AddReportController());
     return Scaffold(
       appBar: const CustomAppBar(
         plusButtonHide: true,
@@ -57,42 +63,70 @@ class Reports extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              width: double.infinity,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(color: Colors.grey)),
                               child: Padding(
                                 padding: const EdgeInsets.all(16),
-                                child: Column(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "Name: ${ds.get('name')}",
-                                      style: TextStyle(color: Colors.white),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Name: ${ds.get('name')}",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        Text(
+                                          "Date: ${ds.get('date')}",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        Text(
+                                          "Spot: ${ds.get("spot")}",
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                        Text(
+                                          "From time: ${ds.get('fromTime')}",
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                        Text(
+                                          "To time: ${ds.get('toTime')}",
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                        Text(
+                                          "Reason: ${ds.get('reason')}",
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                      ],
                                     ),
-                                    Text(
-                                      "Date: ${ds.get('date')}",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    Text(
-                                      "Spot: ${ds.get("spot")}",
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                    ),
-                                    Text(
-                                      "From time: ${ds.get('fromTime')}",
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                    ),
-                                    Text(
-                                      "To time: ${ds.get('toTime')}",
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                    ),
-                                    Text(
-                                      "Reason: ${ds.get('reason')}",
-                                      style:
-                                          const TextStyle(color: Colors.white),
+                                    Obx(
+                                      () => c.isLoading.value
+                                          ? const CircularProgressIndicator(
+                                              color: Colors.redAccent)
+                                          : uType == 'admin'
+                                              ? IconButton(
+                                                  onPressed: () =>
+                                                      c.deleteReport(ds.id),
+                                                  icon: const Icon(
+                                                      Icons.delete_outline,
+                                                      color: Colors.redAccent))
+                                              : uName == ds.get('name')
+                                                  ? IconButton(
+                                                      onPressed: () =>
+                                                          c.deleteReport(ds.id),
+                                                      icon: const Icon(
+                                                          Icons.delete_outline,
+                                                          color:
+                                                              Colors.redAccent))
+                                                  : Container(),
                                     ),
                                   ],
                                 ),

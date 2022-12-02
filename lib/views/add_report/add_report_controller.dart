@@ -37,4 +37,14 @@ class AddReportController extends GetxController {
           snackPosition: SnackPosition.TOP);
     }
   }
+
+  Future<void> deleteReport(String id) async {
+    isLoading(true);
+    await _instance.collection('reports').doc(id).delete().then((value) => {
+          isLoading(false),
+          Get.snackbar('Deleted!', "Deleted successfully!",
+              duration: const Duration(seconds: 1),
+              snackPosition: SnackPosition.BOTTOM),
+        });
+  }
 }

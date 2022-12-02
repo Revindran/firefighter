@@ -11,7 +11,7 @@ class AppThemes {
   static const Color white = Color.fromRGBO(255, 255, 255, 1);
   static const Color nevada = Color.fromRGBO(105, 109, 119, 1);
   // static const Color ebonyClay = Color.fromRGBO(40, 42, 58, 1);
-  static const Color ebonyClay = Colors.black;
+  static const Color ebonyClay = Colors.orange;
   static const Color primaryColor = Color(0xFF0E0137);
   static const Color secondaryColor = Color(0xFFEAF2FF);
   static const Color c = Colors.red;
@@ -187,7 +187,7 @@ class AppThemes {
     //prefix icon color form input on focus
 
     fontFamily: font1,
-    scaffoldBackgroundColor: _darkBackgroundColor,
+    scaffoldBackgroundColor: Colors.grey.shade900,
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: _darkPrimaryColor,
     ),

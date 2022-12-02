@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                 itemName: "View Reports",
                 descHide: true,
                 color: bgWhite,
-                to: const Reports(),
+                to: Reports(),
               ),
             ],
           ),

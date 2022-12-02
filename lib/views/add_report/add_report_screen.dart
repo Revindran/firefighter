@@ -37,7 +37,7 @@ class AddReport extends StatelessWidget {
                       width: 1,
                     )),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(18.0),
                   child: Obx(
                     () => InkWell(
                       onTap: () =>
@@ -61,7 +61,7 @@ class AddReport extends StatelessWidget {
                       width: 1,
                     )),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(18.0),
                   child: Obx(
                     () => InkWell(
                       onTap: () =>
@@ -85,7 +85,7 @@ class AddReport extends StatelessWidget {
                       width: 1,
                     )),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(18.0),
                   child: Obx(
                     () => InkWell(
                       onTap: () =>
